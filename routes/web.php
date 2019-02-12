@@ -12,11 +12,23 @@
 */
 
 
-//REAL ROUTE
-Route::get('/', function() 
-{ 
-    return view('welcome');
-});
+// *** REAL ROUTE *** //
+
+//Home
+// Route::get('/home', function() 
+// { 
+//     return view('profil/home');
+// });
+Route::get('/home', 'HomeStatic@index');
+
+//Profile
+Route::get('/profile', 'ProfileStatic@index');
+
+//Gallery
+Route::get('/gallery', 'GalleryStatic@index');
+
+//Contact
+Route::get('/contact', 'Contact@index');
 
 
 

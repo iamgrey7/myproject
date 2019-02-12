@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\M_pegawai;
-use Session;
 
-class pegawai extends Controller
+class Contact extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class pegawai extends Controller
      */
     public function index()
     {
-        $pegawai = Pegawai::all(); 
-        return view('pegawai.index')->with('pegawai', $pegawai);
+        return view('profil/contact');
     }
 
     /**
@@ -26,7 +23,7 @@ class pegawai extends Controller
      */
     public function create()
     {
-        return view('pegawai.create');
+        //
     }
 
     /**
@@ -35,11 +32,10 @@ class pegawai extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) 
-    { 
-        Article::create($request->all()); 
-        Session::flash("Sukses", "Data Pegawai berhasil ditambahkan" ); 
-        return redirect()->route("pegawai.index");
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -47,12 +43,9 @@ class pegawai extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    }
-
     public function show($id)
     {
-        $pegawai = Pegawai::find($id);
-        return view('pegawai.show')->with('pegawai', $pegawai); 
+        //
     }
 
     /**
@@ -63,8 +56,7 @@ class pegawai extends Controller
      */
     public function edit($id)
     {
-        $pegawai = Pegawai::find($id);
-        return view('pegawai.edit')->with('pegawai', $pegawai);
+        //
     }
 
     /**
@@ -76,9 +68,7 @@ class pegawai extends Controller
      */
     public function update(Request $request, $id)
     {
-        Pegawai::find($id)->update($request->all()); 
-        Session::flash("Sukses", "Data pegawai berhasil diubah"); 
-        return redirect()->route("pegawai.show", $id);
+        //
     }
 
     /**
@@ -89,25 +79,6 @@ class pegawai extends Controller
      */
     public function destroy($id)
     {
-        Pegawai::destroy($id); 
-        Session::flash("Sukses", "Data pegawai telah dihapus"); 
-        return redirect()->route("pegawai.index");
+        //
     }
-
-    public function profil()
-    {
-        return ("ini halaman profil saya");
-    }
-
-    public function masuk()
-    {
-        return("anda berhasil login");
-    }
-
-    public function cv($nama)
-    {
-        return("Biodata anda adalah : $nama");
-    }
-
-    
 }
