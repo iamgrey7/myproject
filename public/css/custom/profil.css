@@ -4,6 +4,7 @@ body {
 }
 
 .navbar-brand img {
+
   width: 150;
   height: 50px;
 }
@@ -19,24 +20,25 @@ header img {
 }
 
 
-
-
 /* jumbotron */
 
-/* .profileimg {
-  width: 700px;
+.profileimg {  
+  width: 100%;
   height: auto;
   z-index: 1;
-} */
-
-
-
+}
 
 
 /* Gallery */
 
+div.gallerykonten{
+  padding:25px;
+}
+
 div.gallery {
   border: 1px solid #ccc;
+  height: 300px;
+  margin-bottom:20px;
 }
 
 div.gallery:hover {
@@ -46,6 +48,7 @@ div.gallery:hover {
 div.gallery img {
   width: 100%;
   height: auto;
+  
 }
 
 div.desc {
