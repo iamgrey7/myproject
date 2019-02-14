@@ -7,7 +7,7 @@
     <p>{!! str_limit($article->content, 250) !!}</p>
     <a class="btn btn-secondary" 
     href={!!url(route("articles.show", $article->id)) !!} role="button">
-    Selengkapnya &raquo;</a></p>
+    Selengkapnya &raquo;</a>
 </div>
 
 @endforeach

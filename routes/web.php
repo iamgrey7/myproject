@@ -36,7 +36,12 @@ Route::resource('/articles', 'Articles');
 //Komentar
 Route::resource('/comments', 'Comments');
 
+//find Artikel
+// Route::get("articles/{article}", 'Articles@find')
+// ->name("articles.find");
 
+Route::get("/find", 'Articles@find')
+->name("articles.find");
 
 
 

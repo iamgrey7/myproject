@@ -97,4 +97,14 @@ class Articles extends Controller
         Session::flash("notice", "Artikel telah dihapus ..");
         return redirect()->route("articles.index");
     }
+
+    public function find()
+    {
+        $articles = Article::all();
+        return view("articles.result")->with("articles", $articles);
+        // $articles = Article::where('title', 'like', '%'.$request->keywords.'%');
+        // $article = Article::find($id);
+        // $comments = Article::find($id)->comments->sortBy('Comment.created_at');
+        // return view("articles.result")->with('article', $article);
+    }
 }
