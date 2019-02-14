@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Article; 
-use Session;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Comment, App\Article;
+use Validator, Session, Redirect, Input;
 
-class Articles extends Controller
+
+class Comments extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,7 @@ class Articles extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        return view("articles.index")->with("articles", $articles);
+        //
     }
 
     /**
@@ -27,7 +28,7 @@ class Articles extends Controller
      */
     public function create()
     {
-        return view("articles.create");
+        //
     }
 
     /**
@@ -36,11 +37,18 @@ class Articles extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleRequest $request)
+    public function store(Request $request)
     {
-        Article::create($request->all());
-        Session::flash("notice", "Artikel berhasil disimpan !");
-        return redirect()->route("articles.index");
+        $validate = Validator::make($request->all(), Comment::valid());
+        if ($validate->fails()) {
+            return Redirect::to('articles/'.$request->article_id)
+            ->withErrors($validate)
+            ->withInput();
+        } else {
+            Comment::create($request->all());
+            Session::flash('notice', "Sukses menambahkan komentar");
+            return Redirect::to('articles/'.$request->article_id);
+        }
     }
 
     /**
@@ -51,12 +59,7 @@ class Articles extends Controller
      */
     public function show($id)
     {
-        $article = Article::find($id);
-        $comments = Article::find($id)->comments->sortBy('Comment.created_at');
-
-        return view("articles.show")
-            ->with('article', $article)
-            ->with('comments', $comments);
+        //
     }
 
     /**
@@ -67,8 +70,7 @@ class Articles extends Controller
      */
     public function edit($id)
     {
-        $article = Article::find($id);
-        return view("articles.edit")->with("article", $article);
+        //
     }
 
     /**
@@ -78,11 +80,9 @@ class Articles extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        Article::find($id)->update($request->all());
-        Session::flash("notice", "Artikel berhasil diubah !");
-        return redirect()->route("articles.show", $id);
+        //
     }
 
     /**
@@ -93,8 +93,6 @@ class Articles extends Controller
      */
     public function destroy($id)
     {
-        Article::destroy($id);
-        Session::flash("notice", "Artikel telah dihapus ..");
-        return redirect()->route("articles.index");
+        //
     }
 }

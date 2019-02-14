@@ -33,6 +33,9 @@ Route::get('/contact', 'Contact@index');
 //Artikel
 Route::resource('articles', 'Articles');
 
+//Komentar
+Route::resource('comments', 'Comments');
+
 
 
 
