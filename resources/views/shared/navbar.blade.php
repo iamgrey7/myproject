@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <!-- logo navbar -->
-    <a class="navbar-brand" href={{url('/home')}}><img src="img/logo.jpg"></a>
+    <a class="navbar-brand logonav" href={{url('/home')}}><img src="img/logo.jpg"></a>
     <a class="navbar-brand" href={{url('/home')}}>GREY.CO</a>
       
     <!-- navbutton responsive -->
@@ -24,6 +24,12 @@
           @else class="nav-item"
           @endif>
           <a class="nav-link" href={{url('/profile')}}>Profile</a>
+        </li>
+        <li 
+          @if(Request::is('articles')) class="nav-item active"
+          @else class="nav-item"
+          @endif>
+          <a class="nav-link" href={{url('/articles')}}>Artikel</a>
         </li>
         <li 
           @if(Request::is('gallery')) class="nav-item active"

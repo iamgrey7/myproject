@@ -30,6 +30,9 @@ Route::get('/gallery', 'GalleryStatic@index');
 //Contact
 Route::get('/contact', 'Contact@index');
 
+//Artikel
+Route::resource('articles', 'Articles');
+
 
 
 

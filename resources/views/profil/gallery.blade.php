@@ -13,7 +13,9 @@
 
     <div class="gallerykonten">                         
                 
-        <h1 style="text-align:center">Our Gallery</h1>        
+        <h1 style="text-align:center">Our Gallery</h1>   
+
+        {{-- isi gallery  --}}
         <div class="responsive">
             <div class="gallery">
                 <a target="_blank" href="img/gal1.jpg">
@@ -89,6 +91,7 @@
 
     </div>
     
+    {{-- clearfix --}}
     <div class="clearfix"></div>
 
 </div>
