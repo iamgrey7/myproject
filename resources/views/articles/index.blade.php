@@ -1,17 +1,22 @@
-@extends("layouts.application")
+@extends("layouts.master")
 
 @section("konten") 
-<div class="row"> 
-    <h2 class="pull-left" style="margin-left:20px">List Articles</h2>      
+<div class='container'>
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Daftar Artikel</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+        <p><a class="btn btn-lg btn-primary" href={!! url(route('articles.create')) !!}  
+            role="button">Buat Artikel Anda !</a></p>
+    </div>
+    <div class="row"> 
 
-    {{-- <a href={!! url('articles.create') !!} 
-    class="pull-right btn btn-raised btn-primary">
-    Buat Artikel</a> --}}
+        {{-- daftar artikel --}}
+        @include('articles.list')
+        
+    </div>
 
-    {!! link_to(route("articles.create"), "Create", 
-    ["class"=>"pull-right btn btn-raised btn-primary"]) !!}
-    
-</div> 
-@include('articles.list') 
-
+     
+</div>
+ 
 @endsection

@@ -1,4 +1,4 @@
-@extends("layouts.application") 
+@extends("layouts.master") 
 
 @section("konten")
 <h3>Edit Article</h3> 

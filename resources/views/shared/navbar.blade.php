@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <!-- logo navbar -->
-    <a class="navbar-brand logonav" href={{url('/home')}}><img src="img/logo.jpg"></a>
+    <a class="navbar-brand logonav" href={{url('/home')}}><img src="../img/logo.jpg"></a>
     <a class="navbar-brand" href={{url('/home')}}>GREY.CO</a>
       
     <!-- navbutton responsive -->

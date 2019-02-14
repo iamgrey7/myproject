@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Contact extends Controller
+class GalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class Contact extends Controller
      */
     public function index()
     {
-        return view('profil.contact');
+        return view('profil.gallery');
     }
 
     /**

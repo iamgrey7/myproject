@@ -1,5 +1,7 @@
+
+{{-- input field judul --}}
 <div class="form-group"> 
-    {!!  Form::label('title', 'Title', 
+    {!!  Form::label('title', 'Judul', 
     array('class' => 'col-lg-3 control-label')) !!} 
     <div class="col-lg-9"> 
         {!! Form::text('title', null, 
@@ -11,8 +13,9 @@
     <div class="clear"></div> 
 </div>
 
+{{-- input field penulis --}}
 <div class="form-group"> 
-        {!!  Form::label('author', 'Author', 
+        {!!  Form::label('author', 'Penulis', 
         array('class' => 'col-lg-3 control-label')) !!} 
         <div class="col-lg-9"> 
             {!! Form::text('author', null, 
@@ -24,8 +27,9 @@
         <div class="clear"></div> 
     </div>
 
+{{-- textarea isi artikel --}}
 <div class="form-group"> 
-    {!! Form::label('content', 'Content', array('class' => 'col-lg-3 control-label')) !!} 
+    {!! Form::label('content', 'Konten Artikel', array('class' => 'col-lg-3 control-label')) !!} 
     <div class="col-lg-9"> 
         {!! Form::textarea('content', null, array('class' => 'form-control', 'rows' => 10)) !!} 
         <div class="text-danger">
@@ -39,10 +43,10 @@
     <div class="col-lg-3"></div> 
     
     <div class="col-lg-9"> 
-        {!! Form::submit('Save', 
-        array('class' => 'btn btn-raised btn-primary')) !!} 
+        {!! Form::submit('Kirim', array(
+            'class' => 'btn btn-lg btn-primary')) !!} 
         {!! link_to(route('articles.index'), 
-        "Back", ['class' => 'btn btn-raised btn-info']) !!} 
+        "Batal", ['class' => 'btn btn-lg btn-secondary']) !!} 
     </div> 
     <div class="clear"></div> 
 </div>

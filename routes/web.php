@@ -19,22 +19,22 @@
 // { 
 //     return view('profil/home');
 // });
-Route::get('/home', 'HomeStatic@index');
+Route::get('/home', 'HomeController@index');
 
 //Profile
-Route::get('/profile', 'ProfileStatic@index');
+Route::get('/profile', 'ProfileController@index');
 
 //Gallery
-Route::get('/gallery', 'GalleryStatic@index');
+Route::get('/gallery', 'GalleryController@index');
 
 //Contact
 Route::get('/contact', 'Contact@index');
 
 //Artikel
-Route::resource('articles', 'Articles');
+Route::resource('/articles', 'Articles');
 
 //Komentar
-Route::resource('comments', 'Comments');
+Route::resource('/comments', 'Comments');
 
 
 

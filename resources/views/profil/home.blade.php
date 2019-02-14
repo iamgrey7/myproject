@@ -1,4 +1,4 @@
-@extends("profil.master")
+@extends("layouts.master")
 
 {{-- Judul --}}
 @section("title")
