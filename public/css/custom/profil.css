@@ -19,6 +19,10 @@ header img {
   height: 100%;
 }
 
+footer {
+  margin-top:50px;
+}
+
 
 /* custom responsive */
 @media screen and (max-width: 300px) {

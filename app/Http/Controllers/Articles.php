@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article; 
-use Session;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Input;
+use Session;
 use DB;
 
 class Articles extends Controller
@@ -53,7 +54,7 @@ class Articles extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        $comments = Article::find($id)->comments->sortBy('Comment.created_at');
+        $comments = Article::find($id)->comments->sortBy("Comment.created_at");
 
         return view("articles.show")
             ->with('article', $article)
@@ -100,18 +101,22 @@ class Articles extends Controller
     }
 
     public function search(Request $request)
-    {
-        // $query = Request::input('search');
+    {       
         $query = $request->input('search');
-        $articles = Article::where('title', 'LIKE', '%' . $query . '%')
-        ->get();
-        // $articles = Article::where('title', "$query");
-        // $articles = DB::table('articles')->where('title', 'LIKE', '%' . $query . '%');
-        return view('articles.result', compact('articles', 'query'));
-        
+        $articles = Article::where('title', 'LIKE', '%' . $query . '%')->get();
+        return view('articles.result', compact('articles', 'query')); 
+    }
 
-        // $articles = DB::table('articles')->where('article_id', '==', '%' . $query . '%');
-        // $articles =  Article::find($query);  
-        // return view("articles.result")->with("articles", $articles);
+    public function sort(Request $request)
+    {    
+        // $action = dd(Input::get('action'));
+        $action = Input::get('action', 'none');
+        if ($action == "oldest") {
+            $articles = Article::all()->sortByDesc("created_at");            
+            return view('articles.result', compact('articles', 'action'));
+        } elseif ($action == "newest") {
+            $articles = Article::all()->sortBy("created_at");           
+            return view('articles.result', compact('articles', 'action'));
+        }
     }
 }

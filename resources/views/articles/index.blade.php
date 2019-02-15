@@ -8,9 +8,12 @@
             <!-- Jumbotron -->
             <div class="jumbotron">
                 <h1>Daftar Artikel</h1>
-                <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+                <p class="lead">Berikut adalah koleksi artikel yang kami buat
+                    . Silakan untuk mengunduh artikel yang anda anggap berguna, atau
+                    mungkin anda ingin menulis artikel buatan anda sendiri ?</p>
                 <p><a class="btn btn-lg btn-primary" href={!! url(route('articles.create')) !!}  
-                    role="button">Buat Artikel !</a></p>
+                    role="button">
+                    <i class="fa fa-pencil fw"></i> Buat Artikel</a></p>
             </div>
         </div>
     
@@ -19,32 +22,34 @@
             <div class="card my-4">
                 <h5 class="card-header">Cari Artikel</h5>
                 <div class="card-body">
-                    <div class="input-group">  
-                           
-                    {{-- <input type="text" class="form-control" 
-                    placeholder="..."> 
-                                                                           
-                    <span class="input-group-btn">            
-                        <a class="btn btn-secondary" 
-                        href={!! url(route("articles.find")) !!} 
-                        role="button">
-                        Go!</a>
-                    </span>     --}}                    
-
+                    
                     {!! Form::open(array(
                         // 'method' => 'post',
                         'route' => 'articles.search', 
-                        'class'=>'form navbar-form navbar-right searchform')) !!}
+                        'class'=>'form searchform')) !!}
                     {!! Form::text('search', null,
                            array('required',
                                 'class'=>'form-control',
                                 'placeholder'=>'kata kunci...')) !!}
-                    {!! Form::submit('Search',
-                                array('class'=>'btn btn-default')) !!}
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                    {{-- {!! Form::submit('Cari',
+                                array('class'=>'btn btn-primary')) !!} --}}
                     {!! Form::close() !!}
-
                     
-                    </div>                    
+                    <div class="">
+                        <p>Sortir berdasarkan : </p>
+                        {!! Form::open(array(                                                              
+                            'route' => 'articles.sort' ))
+                        !!}
+                        <div class="btn-group" role="group" aria-label="sortir">                            
+                            <button type="submit" class="btn btn-info"
+                            name='action' value="newest">Terbaru</button>
+                            <button type="submit" class="btn btn-info"
+                            name='action' value="oldest">Terlama</button>                            
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                                           
                 </div>
             </div>
         </div>

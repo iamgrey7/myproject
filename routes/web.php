@@ -14,11 +14,12 @@
 
 // *** REAL ROUTE *** //
 
-//Home
-// Route::get('/home', function() 
-// { 
-//     return view('profil/home');
-// });
+//Login
+Route::get('/', function() 
+{ 
+    return view('auth/login');
+});
+
 Route::get('/home', 'HomeController@index');
 
 //Profile
@@ -39,6 +40,10 @@ Route::resource('/comments', 'Comments');
 //find Artikel
 Route::post('/search', 'Articles@search')
 ->name("articles.search");
+
+//sort Artikel
+Route::post('/articles/sort', 'Articles@sort')
+->name('articles.sort');
 
 
 
@@ -87,3 +92,6 @@ Route::post('/search', 'Articles@search')
 //named routes
 // Route::get('user/profile', 'pegawai@profil')
 //     ->name('tampilprofil');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
