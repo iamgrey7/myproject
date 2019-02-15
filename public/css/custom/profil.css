@@ -31,6 +31,15 @@ header img {
 
 }
 
+/* halaman kososng */
+
+.errorpage {
+  min-height:570px; 
+}
+.searchpage {
+  min-height:570px;
+}
+
 
 /* jumbotron */
 

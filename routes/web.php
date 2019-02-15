@@ -37,11 +37,10 @@ Route::resource('/articles', 'Articles');
 Route::resource('/comments', 'Comments');
 
 //find Artikel
-// Route::get("articles/{article}", 'Articles@find')
-// ->name("articles.find");
+Route::post('/search', 'Articles@search')
+->name("articles.search");
 
-Route::get("/find", 'Articles@find')
-->name("articles.find");
+
 
 
 

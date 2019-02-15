@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Article; 
 use Session;
 use App\Http\Requests\ArticleRequest;
+use DB;
 
 class Articles extends Controller
 {
@@ -98,13 +99,19 @@ class Articles extends Controller
         return redirect()->route("articles.index");
     }
 
-    public function find()
+    public function search(Request $request)
     {
-        $articles = Article::all();
-        return view("articles.result")->with("articles", $articles);
-        // $articles = Article::where('title', 'like', '%'.$request->keywords.'%');
-        // $article = Article::find($id);
-        // $comments = Article::find($id)->comments->sortBy('Comment.created_at');
-        // return view("articles.result")->with('article', $article);
+        // $query = Request::input('search');
+        $query = $request->input('search');
+        $articles = Article::where('title', 'LIKE', '%' . $query . '%')
+        ->get();
+        // $articles = Article::where('title', "$query");
+        // $articles = DB::table('articles')->where('title', 'LIKE', '%' . $query . '%');
+        return view('articles.result', compact('articles', 'query'));
+        
+
+        // $articles = DB::table('articles')->where('article_id', '==', '%' . $query . '%');
+        // $articles =  Article::find($query);  
+        // return view("articles.result")->with("articles", $articles);
     }
 }

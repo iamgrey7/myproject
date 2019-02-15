@@ -19,27 +19,31 @@
             <div class="card my-4">
                 <h5 class="card-header">Cari Artikel</h5>
                 <div class="card-body">
-                    <div class="input-group">                    
-                    <input type="text" class="form-control" 
-                    placeholder="kata kunci...">                                                            
-                    <span class="input-group-btn">
-                        {{-- <button class="btn btn-secondary my-1" type="button" 
-                        href={!! url(route("articles.find")) !!}
-                        >Go!</button> --}}
-
+                    <div class="input-group">  
+                           
+                    {{-- <input type="text" class="form-control" 
+                    placeholder="..."> 
+                                                                           
+                    <span class="input-group-btn">            
                         <a class="btn btn-secondary" 
                         href={!! url(route("articles.find")) !!} 
                         role="button">
                         Go!</a>
+                    </span>     --}}                    
 
-                        {{-- <a class="btn btn-secondary" 
-                        href={!! url(route("articles.find", $article->id)) !!} 
-                        role="button">
-                        Go!</a> --}}
-                        
-                        
+                    {!! Form::open(array(
+                        // 'method' => 'post',
+                        'route' => 'articles.search', 
+                        'class'=>'form navbar-form navbar-right searchform')) !!}
+                    {!! Form::text('search', null,
+                           array('required',
+                                'class'=>'form-control',
+                                'placeholder'=>'kata kunci...')) !!}
+                    {!! Form::submit('Search',
+                                array('class'=>'btn btn-default')) !!}
+                    {!! Form::close() !!}
 
-                    </span>
+                    
                     </div>                    
                 </div>
             </div>
