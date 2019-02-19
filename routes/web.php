@@ -14,14 +14,28 @@
 
 // *** REAL ROUTE *** //
 
-//Login
-Route::get('/', function() 
-{ 
-    return view('auth/login');
+
+// Authentication Route
+Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::group(['middleware' => ['auth','role:manager']], function () { 
+    Route::resource('/admin', 'AdminController'); 
+    //Route::get('/admin', 'AdminController@index');
+});
+Route::group(['middleware' => ['auth','role:employee']], function () {     
+    Route::resource('/employee', 'EmployeeController'); 
 });
 
-Route::get('/home', 'HomeController@index');
+// Route::get('/employee', 'EmployeeController@index')    
+//     ->name('employee');
+// Route::get('/admin', 'AdminController@admin')    
+//     ->middleware('role')    
+//     ->name('admin');
 
+
+
+Route::get('/logout', 'Auth\LoginController@logout');
+
+//Route::get('/home', 'HomeController@index');
 //Profile
 Route::get('/profile', 'ProfileController@index');
 

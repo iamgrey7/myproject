@@ -20,17 +20,17 @@ class UserTableSeeder extends Seeder
         // $role_manager = Role::find(2);
 
         $employee = new User(); 
-        $employee->name = 'Employee Name'; 
-        $employee->email = 'employee@example.com'; 
-        $employee->password = bcrypt('secret'); 
+        $employee->name = 'Udin'; 
+        $employee->email = 'udin@gmail.com'; 
+        $employee->password = bcrypt('admin'); 
         $employee->save();        
         $employee->roles()->attach($role_employee);     
         
 
         $manager = new User(); 
-        $manager->name = 'Manager Name'; 
-        $manager->email = 'manager@example.com'; 
-        $manager->password = bcrypt('secret');
+        $manager->name = 'Manager Udin'; 
+        $manager->email = 'manager@gmail.com'; 
+        $manager->password = bcrypt('admin');
         $manager->save(); 
         $manager->roles()->attach($role_manager);
     }

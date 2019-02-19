@@ -44,21 +44,12 @@
           <a class="nav-link" href={{url('/contact')}}>Contact</a>
         </li>
 
+        <li >         
+          <a class="nav-link" href={{url('/login')}}>Login</a>
+        </li>
 
-        {{-- old style
-        <li @if(Request::is('home')) class="nav-item active" @endif>
-          <a class="nav-link" href={{url('/home')}}>Home</a>
-        </li>
-        <li @if(Request::is('profile')) class="nav-item active" @endif>
-          <a class="nav-link" href={{url('/profile')}}>Profile</a>
-        </li>
-        <li @if(Request::is('gallery')) class="nav-item active" @endif>
-          <a class="nav-link" href={{url('/gallery')}}>Gallery</a>
-        </li>
-        <li @if(Request::is('contact')) class="nav-item active" @endif>
-          <a class="nav-link" href={{url('/contact')}}>Contact</a>
-        </li> --}}
-
+        
+     
       </ul>
     </div>
   </div>

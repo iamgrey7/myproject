@@ -22,9 +22,17 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $request->user()->authorizeRoles(['employee', 'manager']);        
-        return view('profil.home');
+    {        
+        if ($request->user()->hasRole('manager')) {
+            return redirect()->route('admin.index');
+        }
+        elseif ($request->user()->hasRole('employee')) {
+            return redirect()->route('employee.index');
+        } else {
+            //return view('profil.home');
+            return("Gagal Login");
+        }
+        
     }
 
     /* 
