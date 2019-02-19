@@ -13,6 +13,6 @@
                 'role' => 'form']) 
         !!} 
         @include('articles.form') 
-            {!! Form::close() !!}  
+        {!! Form::close() !!}  
     </div>
  @endsection

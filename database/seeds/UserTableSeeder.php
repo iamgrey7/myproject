@@ -20,8 +20,8 @@ class UserTableSeeder extends Seeder
         // $role_manager = Role::find(2);
 
         $employee = new User(); 
-        $employee->name = 'Udin'; 
-        $employee->email = 'udin@gmail.com'; 
+        $employee->name = 'Pegawai'; 
+        $employee->email = 'employee@gmail.com'; 
         $employee->password = bcrypt('admin'); 
         $employee->save();        
         $employee->roles()->attach($role_employee);     
@@ -30,6 +30,13 @@ class UserTableSeeder extends Seeder
         $manager = new User(); 
         $manager->name = 'Manager Udin'; 
         $manager->email = 'manager@gmail.com'; 
+        $manager->password = bcrypt('admin');
+        $manager->save(); 
+        $manager->roles()->attach($role_manager);
+
+        $manager = new User(); 
+        $manager->name = 'Egry Yudanegara'; 
+        $manager->email = 'zentraprint@gmail.com'; 
         $manager->password = bcrypt('admin');
         $manager->save(); 
         $manager->roles()->attach($role_manager);

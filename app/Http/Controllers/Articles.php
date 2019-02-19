@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Article; 
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
+// use Illuminate\Pagination\LengthAwarePaginator;
 use Session;
 use DB;
 
@@ -18,8 +20,10 @@ class Articles extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        return view("articles.index")->with("articles", $articles);
+        // $articles = Article::all();
+        $articles = Article::paginate(5);
+        return view("articles.index")->with("articles", $articles)
+        ;
     }
 
     /**
@@ -112,7 +116,8 @@ class Articles extends Controller
         // $action = dd(Input::get('action'));
         $action = Input::get('action', 'none');
         if ($action == "oldest") {
-            $articles = Article::all()->sortByDesc("created_at");            
+            // $articles = Article::all()->sortByDesc("created_at")->paginate(5);
+            $articles = Article::all()->sortByDesc("created_at");
             return view('articles.result', compact('articles', 'action'));
         } elseif ($action == "newest") {
             $articles = Article::all()->sortBy("created_at");           

@@ -25,27 +25,34 @@
           @endif>
           <a class="nav-link" href={{url('/profile')}}>Profile</a>
         </li>
-        <li 
-          @if(Request::is('articles')) class="nav-item active"
-          @else class="nav-item"
-          @endif>
-          <a class="nav-link" href={{url('/articles')}}>Artikel</a>
-        </li>
+        
+        @if(Auth::user()->hasRole('manager'))
+          <li 
+            @if(Request::is('articles')) class="nav-item active"
+            @else class="nav-item"
+            @endif>
+            <a class="nav-link" href={{url('/articles')}}>Artikel</a>
+          </li>
+        @endif
+
+        @if(Auth::user()->hasRole('manager'))
         <li 
           @if(Request::is('gallery')) class="nav-item active"
           @else class="nav-item"
           @endif>
           <a class="nav-link" href={{url('/gallery')}}>Gallery</a>
         </li>
+        @endif
+
         <li 
           @if(Request::is('contact')) class="nav-item active"
           @else class="nav-item"
           @endif>
           <a class="nav-link" href={{url('/contact')}}>Contact</a>
         </li>
-
+    
         <li >         
-          <a class="nav-link" href={{url('/login')}}>Login</a>
+          <a class="nav-link" href={{url('/logout')}}>Logout</a>
         </li>
 
         

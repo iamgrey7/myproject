@@ -58,7 +58,7 @@
     <div class="row"> 
 
         {{-- daftar artikel --}}
-        @include('articles.list')
+        @include('articles.list')       
 
     </div>
      

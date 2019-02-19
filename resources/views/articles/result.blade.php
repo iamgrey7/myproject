@@ -37,13 +37,13 @@
                     href={!!url(route("articles.show", $article->id)) !!} role="button">
                     Selengkapnya &raquo;</a>
                     <hr>
-                </div>
-                @endforeach
+                </div>                
+                @endforeach               
 
-            </div>
-            
+            </div>            
         @endif
 
+        {{-- {{ $articles->links() }}      --}}
 </div>
  
 @endsection

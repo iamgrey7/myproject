@@ -16,32 +16,19 @@ class CheckRole
      */
     public function handle($request, Closure $next, $role)
     {
-        // one role
-        //$role = $request->user()->role;
-        if (! $request->user()->hasRole($role)) {
-            abort(401, 'This Action is unauthorized');
-        }
-        return $next($request);   
+        // one role     
+        // if (! $request->user()->hasRole($role)) {
+        //     abort(401, 'This Action is unauthorized');
+        // }
+        
 
         //multiple roles
-        // if (! $request->user()->authorizeRoles($role)) { 
-        //     abort(401, 'This action is unauthorized.');
-        // }
+        if (! $request->user()->authorizeRoles($role)) { 
+            abort(401, 'This action is unauthorized.');
+        }
 
-        // if(auth()->user()->CheckRole()) {
-        //     return $next($request);
-        // }
-        // return redirect('home');
-
-        
-        
+        return $next($request);  
     }
 
-    private function CheckAdmin()
-    {
-        if (!Auth::user()->role == 'admin') {
-            return false;    
-        }    
-    }
-    
+      
 }

@@ -22,17 +22,20 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {        
+    {    
+
+        
+        $role = $request->user()->role;
+
+        // single role diff homepage 
         if ($request->user()->hasRole('manager')) {
-            return redirect()->route('admin.index');
+            return redirect()->route('admin.index')
+            ->with('role', $role);
         }
         elseif ($request->user()->hasRole('employee')) {
-            return redirect()->route('employee.index');
-        } else {
-            //return view('profil.home');
-            return("Gagal Login");
-        }
-        
+            return redirect()->route('employee.index')
+            ->with('role', $role);
+        }        
     }
 
     /* 

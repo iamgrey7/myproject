@@ -17,25 +17,19 @@
 
 // Authentication Route
 Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::group(['middleware' => ['auth','role:manager']], function () { 
-    Route::resource('/admin', 'AdminController'); 
-    //Route::get('/admin', 'AdminController@index');
+    Route::resource('/admin', 'AdminController');     
 });
 Route::group(['middleware' => ['auth','role:employee']], function () {     
     Route::resource('/employee', 'EmployeeController'); 
 });
 
-// Route::get('/employee', 'EmployeeController@index')    
-//     ->name('employee');
-// Route::get('/admin', 'AdminController@admin')    
-//     ->middleware('role')    
-//     ->name('admin');
 
-
-
-Route::get('/logout', 'Auth\LoginController@logout');
-
+//Home std
 //Route::get('/home', 'HomeController@index');
+
 //Profile
 Route::get('/profile', 'ProfileController@index');
 
@@ -59,6 +53,18 @@ Route::post('/search', 'Articles@search')
 Route::post('/articles/sort', 'Articles@sort')
 ->name('articles.sort');
 
+
+//this routes for check if email user is exist in database 
+Route::get('forgot-password', 'ReminderController@create')
+    ->name('reminders.create'); 
+Route::post('forgot-password', 'ReminderController@store')
+    ->name('reminders.store'); 
+
+//this routes for handle changes password 
+Route::get('reset-password/{id}/{token}', 'ReminderController@edit')
+    ->name('reminders.edit'); 
+Route::post('reset-password/{id}/{token}', 'ReminderController@update')
+    ->name('reminders.update');
 
 
 
