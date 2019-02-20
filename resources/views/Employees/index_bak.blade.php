@@ -1,52 +1,65 @@
-@extends("layouts.master")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{{-- Judul --}}
-@section("title")
-  Data Pegawai
-@endsection
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.jpg') }}">
 
-@section("head")
+    <!-- CSFR token for ajax call -->
+    <meta name="_token" content="{{ csrf_token() }}"/>
+
+    <title>Data Pegawai</title>
+
+    <link rel="stylesheet" href="{{ asset('css/bs-3.4.1/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('fa/fa.min.css') }}"/> 
+    <link rel="stylesheet" href="{{ asset('icheck/square/yellow.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}"/>
+
+
 <style>
-    .panel-heading {
-        padding: 0;
-    }
-    .panel-heading ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-    .panel-heading li {
-        float: left;
-        border-right:1px solid #bbb;
-        display: block;
-        padding: 14px 16px;
-        text-align: center;
-    }
-    .panel-heading li:last-child:hover {
-        background-color: #ccc;
-    }
-    .panel-heading li:last-child {
-        border-right: none;
-    }
-    .panel-heading li a:hover {
-        text-decoration: none;
-    }
+        .panel-heading {
+            padding: 0;
+        }
+        .panel-heading ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .panel-heading li {
+            float: left;
+            border-right:1px solid #bbb;
+            display: block;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .panel-heading li:last-child:hover {
+            background-color: #ccc;
+        }
+        .panel-heading li:last-child {
+            border-right: none;
+        }
+        .panel-heading li a:hover {
+            text-decoration: none;
+        }
 
-    .table.table-bordered tbody td {
-        vertical-align: baseline;
-    }
-    /* icheck checkboxes */
-    .iradio_flat-yellow {
-        background: url(https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/yellow.png) no-repeat;
-    }
+        .table.table-bordered tbody td {
+            vertical-align: baseline;
+        }
+        /* icheck checkboxes */
+        .iradio_flat-yellow {
+            background: url(https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/yellow.png) no-repeat;
+        }
     </style>
-@endsection
 
+</head>
 
-{{-- Section Konten --}}
-@section("konten")
-<div class="container">
+<body>
     <div class="col-md-8 col-md-offset-2">
         <h2 class="text-center">Kelola Data Pegawai</h2>
         <br />
@@ -68,7 +81,7 @@
             </div>
 
             <div class="panel-body">
-                    <table class="table table-striped table-bordered table-hover table-responsive" 
+                    <table class="table table-striped table-bordered table-hover" 
                     id="employeeTable">
                         <thead>
                             <tr>
@@ -95,12 +108,12 @@
                                     <td class="text-center"><input type="checkbox" class="permanent" data-id="{{$employee->id}}" @if ($employee->is_permanent) checked @endif></td>
                                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->updated_at)->diffForHumans() }}</td>
                                     <td>
-                                        <button id="btnShow" class="show-modal btn btn-success" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-address="{{$employee->address}}">
-                                        <i class="fa fa-eye" aria-hidden="true"></i> Show</button>
+                                        <button class="show-modal btn btn-success" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-address="{{$employee->address}}">
+                                        <span class="glyphicon glyphicon-eye-open"></span> Show</button>
                                         <button class="edit-modal btn btn-info" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-address="{{$employee->address}}">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                                        <span class="glyphicon glyphicon-edit"></span> Edit</button>
                                         <button class="delete-modal btn btn-danger" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-address="{{$employee->address}}">
-                                        <i class="fa fa-trash" aria-hidden="true"></i></span> Delete</button>
+                                        <span class="glyphicon glyphicon-trash"></span> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -109,7 +122,6 @@
             </div><!-- /.panel-body -->
         </div><!-- /.panel panel-default -->
     </div><!-- /.col-md-8 -->
-</div> {{--container --}}
 
 
     {{-- modal percobaan --}}
@@ -149,14 +161,16 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="name">Nama:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name_add" autofocus>                                
+                                <input type="text" class="form-control" id="name_add" autofocus>
+                                <small>Min: 2, Max: 32, only text</small>
                                 <p class="errorName text-center alert alert-danger hidden"></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="address">Alamat:</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="address_add" cols="40" rows="5"></textarea>                                
+                                <textarea class="form-control" id="address_add" cols="40" rows="5"></textarea>
+                                <small>Min: 2, Max: 128, only text</small>
                                 <p class="errorAddress text-center alert alert-danger hidden"></p>
                             </div>
                         </div>
@@ -266,7 +280,7 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center">Anda yakin akan menghapus data ini ?</h4>
+                    <h3 class="text-center">Anda yakin akan menghapus data ini ?</h3>
                     <br />
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
@@ -294,12 +308,20 @@
             </div>
         </div>
     </div>
-    @endsection
+
+    <script src="{{ asset('/js/jquery/jquery.min.js') }}"></script> 
+
+    {{-- bootstrap js lama --}}
+    <script src="{{ asset('/js/bs-3.4.1/bootstrap.min.js') }}"></script>
+
+    {{-- bootstrap js baru --}}
+    {{-- <script src="{{ asset('/js/bootstrap/bootstrap.min.js') }}"></script>
+
+    {{-- <script src="{{ asset('/js/app.js') }}"></script>  --}}    
+    <script src="{{ asset('/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('/icheck/icheck.min.js') }}"></script>
 
 
-
-
-    @section("script")
     <!-- Delay table load until everything else is loaded -->
     <script>
         $(window).load(function(){
@@ -403,7 +425,7 @@
         });
 
         // Show an employee
-        $(document).on('click', '#btnShow', function() {
+        $(document).on('click', '.show-modal', function() {
             $('.modal-title').text('Data Pegawai');
             $('#id_show').val($(this).data('id'));
             $('#name_show').val($(this).data('name'));
@@ -451,7 +473,7 @@
                         }
                     } else {
                         toastr.success('Berhasil update artikel ..', 'Success Alert', {timeOut: 5000});
-                        $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.address + "</td><td class='text-center'><input type='checkbox' class='edit_permanent' data-id='" + data.id + "'></td><td>Right now</td><td><button id='btnShow' class='show-modal btn btn-success' data-id='" + data.id + "' data-name='" + data.name + "' data-address='" + data.address + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-name='" + data.name + "' data-address='" + data.address + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-name='" + data.name + "' data-address='" + data.address + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
+                        $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.address + "</td><td class='text-center'><input type='checkbox' class='edit_permanent' data-id='" + data.id + "'></td><td>Right now</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-name='" + data.name + "' data-address='" + data.address + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-name='" + data.name + "' data-address='" + data.address + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-name='" + data.name + "' data-address='" + data.address + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
 
                         if (data.is_permanent) {
                             $('.edit_permanent').prop('checked', true);
@@ -484,59 +506,31 @@
             });
         });
 
-
-        // delete an employee
+        // delete a post
         $(document).on('click', '.delete-modal', function() {
-            $('.modal-title').text('Hapus Data');
+            $('.modal-title').text('Hapus Pegawai');
             $('#id_delete').val($(this).data('id'));
-            $('#name_delete').val($(this).data('name'));            
+            $('#name_delete').val($(this).data('name'));
             $('#deleteModal').modal('show');
-            deleteid = $('#id_delete').val();
+            id = $('#id_delete').val();
         });
         $('.modal-footer').on('click', '.delete', function() {
             $.ajax({
                 type: 'DELETE',
-                url: 'employees/' + deleteid,
+                url: 'employees/' + id,
                 data: {
-                    // 'id': $('#id_delete').val();
-                    '_token': $('input[name=_token]').val(),                                        
+                    '_token': $('input[name=_token]').val(),
                 },
                 success: function(data) {
-                    toastr.success('Sukses menghapus pegawai', 'Success Alert', {timeOut: 5000});
-                    $('.item' + id).remove();
+                    toastr.success('Successfully deleted Post!', 'Success Alert', {timeOut: 5000});
+                    $('.item' + data['id']).remove();
                     $('.col1').each(function (index) {
-                        $(this).html(index+1);                    
+                        $(this).html(index+1);
                     });
-                    alert("okey");
                 }
             });
         });
-
-
-
-        // delete a post
-        // $(document).on('click', '.delete-modal', function() {
-        //     $('.modal-title').text('Hapus Pegawai');
-        //     $('#id_delete').val($(this).data('id'));
-        //     $('#name_delete').val($(this).data('name'));
-        //     $('#deleteModal').modal('show');
-        //     id = $('#id_delete').val();
-        // });
-        // $('.modal-footer').on('click', '.delete', function() {
-        //     $.ajax({
-        //         type: 'DELETE',
-        //         url: 'employees/' + id,
-        //         data: {
-        //             '_token': $('input[name=_token]').val(),
-        //         },
-        //         success: function(data) {
-        //             toastr.success('Successfully deleted Post!', 'Success Alert', {timeOut: 5000});
-        //             $('.item' + data['id']).remove();
-        //             $('.col1').each(function (index) {
-        //                 $(this).html(index+1);
-        //             });
-        //         }
-        //     });
-        // });
     </script>
-@endsection
+
+</body>
+</html>

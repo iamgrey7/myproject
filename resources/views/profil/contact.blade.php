@@ -33,6 +33,7 @@
         </form>
     </div>
 </div>
+@endsection
 
 
 {{-- Section Script --}}
