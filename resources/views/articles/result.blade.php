@@ -28,7 +28,11 @@
             <div class='row'>
 
                 @foreach($articles as $article)             
-                <div class="col-lg-12">                    
+                <div class="col-lg-12"> 
+                    
+                    <img id="myImg" src={{ asset($article->image) }}
+                    class="img-responsive" height="100">
+                                    
                     <h3>{!! $article->title !!}</h3>
                     <i>Ditulis pada : {!! $article->created_at !!}</i>
                     <p></p>                   

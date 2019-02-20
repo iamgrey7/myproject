@@ -27,8 +27,10 @@ class ArticleRequest extends FormRequest
         return [
             'title' => 'required|max:255', 
             'content' => 'required', 
-            'author' => 'required'
+            'author' => 'required',
+            'userfile' => 'sometimes|image|mimes:jpeg,png|min:1|max:250'
         ];
+       
     }
 
     public function messages()
@@ -37,7 +39,9 @@ class ArticleRequest extends FormRequest
             'title.required' => "Judul harus diisi" , 
             'title.unique' => "Judul ini sudah ada, pilih nama Judul yang lain ",
             'content.required' => "Konten harus diisi",
-            'author.required' => "Penulis harus diisi"
+            'author.required' => "Penulis harus diisi",
+            'userfile.mimes' => "Format Gambar harus JPEG atau PNG",
+            'userfile.max' => "Gambar maksimal berukuran 250kb"
         ];
     }
     

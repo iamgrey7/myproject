@@ -3,15 +3,24 @@
 @section("konten") 
 <div class='container'>
     <div> 
+        <img src={{ asset($article->image )}} height="150">  
         <h1>{!! $article->title !!}</h1> 
         <p>{!! $article->content !!}</p> 
         <h5><strong><i>By {!! $article->author !!}</i></strong> </h5>
+        <div class='row'>
+            <a href={{ url("articles/$article->id/edit") }} 
+                class="btn btn-warning pull-left">Edit</a>
+            <a href={{ url("articles/$article->id/edit") }} 
+                class="btn btn-warning pull-left">Edit</a>    
+        </div>
+        
     </div> 
 
     {{-- section komentar --}}
 
     
     {{-- Form isian komentar --}}
+
     <div class="card my-4">
         <h5 class="card-header">Beri Komentar Anda :</h5>
         <div class="card-body">

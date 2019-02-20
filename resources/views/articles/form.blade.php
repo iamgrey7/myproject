@@ -39,6 +39,19 @@
     <div class="clear"></div> 
 </div> 
 
+{{-- input file gambar --}}
+<div class="form-group">
+    <label class="col-lg-3" for="userfile">File Gambar Artikel</label>
+    <div class="col-lg-9">
+        {!! Form::file("userfile",null,[
+            'class' => 'form-control'
+        ]) !!}
+    </div>    
+    <div class="clear"></div> 
+</div>
+
+
+{{-- button submit --}}
 <div class="form-group">
     <div class="col-lg-3"></div> 
     

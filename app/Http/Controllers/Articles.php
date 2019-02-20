@@ -11,6 +11,7 @@ use Illuminate\Pagination\Paginator;
 use Session;
 use DB;
 
+
 class Articles extends Controller
 {
     /**
@@ -20,10 +21,9 @@ class Articles extends Controller
      */
     public function index()
     {
-        // $articles = Article::all();
-        $articles = Article::paginate(5);
-        return view("articles.index")->with("articles", $articles)
-        ;
+        // $articles = Article::all()->sortByDesc("created_at");
+        $articles = Article::paginate(3);
+        return view("articles.index")->with("articles", $articles);
     }
 
     /**
@@ -43,10 +43,25 @@ class Articles extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ArticleRequest $request)
-    {
-        Article::create($request->all());
-        Session::flash("notice", "Artikel berhasil disimpan !");
-        return redirect()->route("articles.index");
+    {        
+        if($request->hasFile('userfile')) {
+            $file = $request->file('userfile');
+            $destination_path = 'uploads/';
+            $filename = str_random(6).'_'.$file->getClientOriginalName();
+            $file->move($destination_path, $filename); 
+            $file = $destination_path.$filename;
+        } else {
+            $file = NULL;
+        }
+
+        $article = new Article(); 
+        $article->title = $request->input('title');
+        $article->author = $request->input('author');
+        $article->content = $request->input('content');
+        $article->image = $file;        
+        $article->save();
+
+        return redirect('articles/'.$request->article_id);
     }
 
     /**
@@ -86,9 +101,33 @@ class Articles extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-        Article::find($id)->update($request->all());
-        Session::flash("notice", "Artikel berhasil diubah !");
-        return redirect()->route("articles.show", $id);
+        // Article::find($id)->update($request->all());
+        // Session::flash("notice", "Artikel berhasil diubah !");
+        // return redirect()->route("articles.show", $id);
+
+
+        $article = Article::find($id);
+        if($request->hasFile('userfile')) {
+            $file = $request->file('userfile');
+            $destination_path = 'uploads/';
+            $filename = str_random(6).'_'.$file->getClientOriginalName();
+            $file->move($destination_path, $filename); 
+            $file = $destination_path.$filename;
+        } else {
+            $file = $article->image;
+        }
+        
+        //proses update database
+        $article->title = $request->input('title');
+        $article->author = $request->input('author');
+        $article->content = $request->input('content');
+        $article->image = $file;        
+        $article->update();
+
+        return redirect('articles/'.$request->article_id);
+
+
+
     }
 
     /**
@@ -116,11 +155,10 @@ class Articles extends Controller
         // $action = dd(Input::get('action'));
         $action = Input::get('action', 'none');
         if ($action == "oldest") {
-            // $articles = Article::all()->sortByDesc("created_at")->paginate(5);
-            $articles = Article::all()->sortByDesc("created_at");
+            $articles = Article::all()->sortBy("created_at");
             return view('articles.result', compact('articles', 'action'));
         } elseif ($action == "newest") {
-            $articles = Article::all()->sortBy("created_at");           
+            $articles = Article::all()->sortByDesc("created_at");           
             return view('articles.result', compact('articles', 'action'));
         }
     }

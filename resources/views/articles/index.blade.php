@@ -61,6 +61,9 @@
         @include('articles.list')       
 
     </div>
+    <div class="row align-center" align:center>            
+        {{ $articles->links() }}
+    </div>
      
 </div>
  

@@ -2,84 +2,94 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Validator;
+use Response;
+use App\Employee;
+use View;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    protected $rules = 
+    [
+        'name' => 'required',
+        'address' => 'required'
+    ];
+
+    public function index() //(Request $request)
     {
-        //$request->user()->authorizeRoles(['employee']);   
-        return view("employees.index"); 
+        // $request->user()->authorizeRoles(['employee']);   
+        // return view("employees.index"); 
+        $employees = Employee::all();
+        return view('employees.index', ['employees' => $employees]);        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(Input::all(), $this->rules);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $employee = new Employee();
+            $employee->name = $request->name;
+            $employee->address = $request->address;
+            $employee->save();
+            return response()->json($employee);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return view('employees.show', ['employee' => $employee]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(Input::all(), $this->rules);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $employee = Employee::findOrFail($id);
+            $employee->name = $request->name;
+            $employee->address = $request->address;
+            $employee->save();
+            return response()->json($employee);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+        return response()->json($employee);
+    }
+
+    public function changeStatus() 
+    {
+        $id = Input::get('id');
+
+        $employee = Employee::findOrFail($id);
+        $employee->is_permanent = !$employee->is_permanent;
+        $employee->save();
+
+        return response()->json($employee);
     }
 }

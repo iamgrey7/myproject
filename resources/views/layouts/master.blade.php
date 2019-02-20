@@ -11,8 +11,9 @@
   <title>@yield("title")</title>
 
   <!-- CSS -->  
-  <link rel="stylesheet" href="{{ asset('/css/bootstrap/bootstrap.css') }}"/>
+  <link rel="stylesheet" href="{{ asset('/css/bootstrap/bootstrap.css') }}"/>  
   <link rel="stylesheet" href="{{ asset('/css/custom/profil.css') }}"/>
+  {{-- <link rel="stylesheet" href="{{ asset('/css/app.css') }}"/> --}}
   <link rel="stylesheet" href="{{ asset('/fa/css/font-awesome.css') }}"/>
 
 </head>

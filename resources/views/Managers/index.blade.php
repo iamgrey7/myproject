@@ -1,4 +1,4 @@
 
 @extends("layouts.master")
 
-this is admin page
+ini adalah halaman manager

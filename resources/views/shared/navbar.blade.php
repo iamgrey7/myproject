@@ -25,6 +25,15 @@
           @endif>
           <a class="nav-link" href={{url('/profile')}}>Profile</a>
         </li>
+
+        @if(Auth::user()->hasRole('manager'))
+          <li 
+            @if(Request::is('employee')) class="nav-item active"
+            @else class="nav-item"
+            @endif>
+            <a class="nav-link" href={{url('/employees')}}>Data Pegawai</a>
+          </li>
+        @endif
         
         @if(Auth::user()->hasRole('manager'))
           <li 
@@ -53,9 +62,7 @@
     
         <li >         
           <a class="nav-link" href={{url('/logout')}}>Logout</a>
-        </li>
-
-        
+        </li>     
      
       </ul>
     </div>

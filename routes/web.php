@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth','role:manager']], function () {
     Route::resource('/admin', 'AdminController');     
 });
 Route::group(['middleware' => ['auth','role:employee']], function () {     
-    Route::resource('/employee', 'EmployeeController'); 
+    Route::resource('/pegawai', 'EmployeeController'); 
 });
 
 
@@ -52,6 +52,10 @@ Route::post('/search', 'Articles@search')
 //sort Artikel
 Route::post('/articles/sort', 'Articles@sort')
 ->name('articles.sort');
+
+//Manajemen Employee
+Route::resource('/employees','EmployeeController');
+Route::post('/employees/changeStatus', array('as' => 'changeStatus', 'uses' => 'EmployeeController@changeStatus'));
 
 
 //this routes for check if email user is exist in database 
