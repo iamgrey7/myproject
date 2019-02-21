@@ -20,15 +20,17 @@ Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::group(['middleware' => ['auth','role:manager']], function () { 
-    Route::resource('/admin', 'AdminController');     
+    Route::resource('/employees', 'EmployeeController');     
 });
 Route::group(['middleware' => ['auth','role:employee']], function () {     
-    Route::resource('/pegawai', 'EmployeeController'); 
+    // Route::resource('/home', 'HomeController');
+       
 });
 
 
 //Home std
-//Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')
+->name("home.index");
 
 //Profile
 Route::get('/profile', 'ProfileController@index');
@@ -54,7 +56,6 @@ Route::post('/articles/sort', 'Articles@sort')
 ->name('articles.sort');
 
 //Manajemen Employee
-Route::resource('/employees','EmployeeController');
 Route::post('/employees/changeStatus', array('as' => 'changeStatus', 'uses' => 'EmployeeController@changeStatus'));
 
 

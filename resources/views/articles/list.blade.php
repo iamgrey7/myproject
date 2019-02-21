@@ -1,5 +1,6 @@
 
 
+<div class="row">
 @foreach($articles as $article) 
 
 <div class="col-lg-4" style="padding:15px">
@@ -11,4 +12,10 @@
 </div>
 
 @endforeach
+</div>
+
+<div class="row">
+    {{ $articles->links() }}
+</div>
+
 

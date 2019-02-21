@@ -17,12 +17,34 @@ class EmployeeController extends Controller
         'address' => 'required'
     ];
 
-    public function index() //(Request $request)
+    public function index(Request $request) //(Request $request)
     {
-        // $request->user()->authorizeRoles(['employee']);   
-        // return view("employees.index"); 
-        $employees = Employee::all();
-        return view('employees.index', ['employees' => $employees]);        
+        // $employees = Employee::all();
+        // return view('employees.index', ['employees' => $employees]);  
+        
+    
+        if($request->ajax()) { 
+            $employees = Employee::where(
+                'name', 'like', '%'.$request->keywords.'%') 
+                ->orWhere('address', 'like', '%'.$request->keywords.'%');                      
+            $employees = $employees->paginate(10);
+
+            $request->keywords == '' ? $keywords = '' : $keywords = $request->keywords; 
+            
+            $view = (String)view('employees.list') 
+                ->with('employees', $employees)
+                ->render(); 
+            
+            return response()->json([
+                'view' => $view,                 
+                'keywords' => $keywords, 
+                'test' => $employees,
+                'status' => 'success']); 
+        } else { 
+            $employees = Employee::paginate(10); 
+            return view('employees.index') ->with('employees', $employees); 
+        }
+        
     }
 
 
@@ -77,9 +99,9 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::find($id);
         $employee->delete();
-        return response()->json($employee);
+        return response()->json();
     }
 
     public function changeStatus() 
@@ -90,6 +112,6 @@ class EmployeeController extends Controller
         $employee->is_permanent = !$employee->is_permanent;
         $employee->save();
 
-        return response()->json($employee);
+        return response()->json();
     }
 }

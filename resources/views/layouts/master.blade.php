@@ -6,7 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="">  
+  <meta name="_token" content="{{ csrf_token() }}"/>
 
   <title>@yield("title")</title>
 
@@ -27,6 +28,7 @@
   <!-- Navbar -->
   @include("shared.navbar")
 
+  
   <!-- Konten -->
   @yield("konten")
   <!-- /konten end -->
@@ -39,7 +41,7 @@
 
 <script src="{{ asset('/js/jquery/jquery.min.js') }}"></script> 
 {{-- bslama --}}
-{{-- <script src="{{ asset('/js/bootstrap/bootstrap.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('/js/bootstrap/bootstrap.js') }}"></script> --}}
 <script src="{{ asset('/js/bs-3.4.1/bootstrap.min.js') }}"></script>
 <script src="{{ asset('/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('/icheck/icheck.min.js') }}"></script> 

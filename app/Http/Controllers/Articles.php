@@ -19,12 +19,44 @@ class Articles extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // $articles = Article::all()->sortByDesc("created_at");
-        $articles = Article::paginate(3);
-        return view("articles.index")->with("articles", $articles);
+    // public function index()
+    // {
+    //     // $articles = Article::all()->sortByDesc("created_at");
+    //     $articles = Article::paginate(3);
+    //     return view("articles.index")->with("articles", $articles);
+    // }
+
+    function index(Request $request) { 
+        if($request->ajax()) { 
+            $articles = Article::where(
+                'title', 'like', '%'.$request->keywords.'%') 
+            ->orWhere('content', 'like', '%'.$request->keywords.'%'); 
+            if($request->direction) { 
+                $articles = $articles->orderBy('id', $request->direction); 
+            }             
+            $articles = $articles->paginate(3);
+
+            $request->direction == 'asc' ? $direction = 'desc' : $direction = 'asc'; 
+            $request->keywords == '' ? $keywords = '' : $keywords = $request->keywords; 
+            
+            $view = (String)view('articles.list') 
+                ->with('articles', $articles)
+                ->render(); 
+            
+            return response()->json([
+                'view' => $view, 
+                'direction' => $direction, 
+                'keywords' => $keywords, 
+                'test' => $articles,
+                'status' => 'success']); 
+        } else { 
+            $articles = Article::paginate(3); 
+            return view('articles.index') ->with('articles', $articles); 
+        }
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

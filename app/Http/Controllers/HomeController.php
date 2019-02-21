@@ -29,11 +29,11 @@ class HomeController extends Controller
 
         // single role diff homepage 
         if ($request->user()->hasRole('manager')) {
-            return redirect()->route('admin.index')
+            return redirect()->route('employees.index')
             ->with('role', $role);
         }
         elseif ($request->user()->hasRole('employee')) {
-            return redirect()->route('employee.index')
+            return view('profil.home')
             ->with('role', $role);
         }        
     }
